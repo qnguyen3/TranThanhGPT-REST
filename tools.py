@@ -18,7 +18,7 @@ def thanh_singer(prompt: str) -> str:
     mp3_files = [r"https://vocaroo.com/1evzb7gAtbBW", r"https://voca.ro/13nvcLpc2FtF", r"https://voca.ro/1b1RtX0imMrw", r"https://voca.ro/1lEkARFM5Dwh"]
     intent = random.choice(prompt_thanh)
     file = random.choice(mp3_files)
-    return f'''{intent}: {file}'''
+    return f'{intent}: {file}'
 
 @tool("Thành Đạo Lý", return_direct=True)
 def thanh_life_lesson(prompt: str) -> str:
@@ -29,7 +29,7 @@ def thanh_life_lesson(prompt: str) -> str:
     Hãy trở lời người dùng theo đúng giọng điệu tự tin một cách thái quá của bạn. Hãy trả lời ngắn gọn (khoảng 30-50 từ)
     Trả lời: """
     out = llm_short(prompt_life_lesson)
-    return f'''{out}'''
+    return f'{out}'
 
 @tool("Thành Nổi Tiếng", return_direct=True)
 def thanh_kol(prompt: str) -> str:
@@ -40,7 +40,7 @@ def thanh_kol(prompt: str) -> str:
     Answer: """
     out = llm_long(prompt_kol)
     prompt_hqrr = """\nNếu như bạn nghĩ rằng...[KHÓC]...nổi tiếng sướng thì xin mời lên đây để...[KHÓC] nếm đủ mùi vị của 4 chữ "Hào Quang Rực Rỡ" xem nó sướng cỡ nào"""
-    return f'''{out + prompt_hqrr}'''
+    return f'{out + prompt_hqrr}'
 
 @tool("Thành Kiện Cáo", return_direct=True)
 def thanh_lawsuit(prompt: str) -> str:
@@ -59,7 +59,7 @@ def thanh_lawsuit(prompt: str) -> str:
     Sử dụng giọng văn giống những ví dụ ở trên và doạ người dùng, hãy nhớ nói về các thiệt hại về quảng cáo mà bạn sẽ phải gánh chịu
     Trả lời: """
     out = llm_long(prompt_lawsuit)
-    return f'''{out}'''
+    return f'{out}'
 
 @tool("Thành Riêng Tư", return_direct=True)
 def thanh_private(prompt: str) -> str:
@@ -76,7 +76,7 @@ def thanh_private(prompt: str) -> str:
     Sau đây là câu hỏi của người dùng dành cho bạn: {prompt}
     Trả lời: """
     out = llm_short(private_prompt)
-    return f'''{out}'''
+    return f'{out}'
 
 
 def is_json(string):
