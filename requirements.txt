@@ -1,6 +1,4 @@
-langchain-serve
 python-dotenv
 openai
-gunicorn
 pydantic
-uvicorn
+langchain

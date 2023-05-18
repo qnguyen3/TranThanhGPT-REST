@@ -15,7 +15,7 @@ from lcserve import serving
 load_dotenv()
 
 @serving(websocket=False)
-def hitl(question: str, **kwargs) -> str:
+def hitl(message: str, **kwargs):
 
 
     tools = [
@@ -52,12 +52,5 @@ def hitl(question: str, **kwargs) -> str:
     memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True)
     agent_kwargs = {'human_message': SUFFIX, 'system_message': PREFIX}
     agent_chain = initialize_agent(tools, ChatOpenAI(temperature=0), agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=False, agent_kwargs=agent_kwargs, memory=memory)
-    out = agent_chain.run(question)
-    if is_json(out):
-        json_obj = json.loads(out)
-        type = out['type']
-        content = out['content']
-        print(content)
-        return json_obj
-    else:
-       return {'type': 'text', 'content': out}
+    out = agent_chain.run(message)
+    return out
