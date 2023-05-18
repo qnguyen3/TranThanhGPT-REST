@@ -34,7 +34,7 @@ def hitl(message: str, **kwargs):
     Tool(
         name = "Thành Nổi Tiếng",
         func=thanh_kol.run,
-        description="Có ích khi có câu hỏi liên quan đến nghề nghiệp và sự nổi tiếng của Trấn Thành, input nên là câu hỏi trực tiếp của người dùng",
+        description="Có ích khi có câu hỏi liên quan đến nghề nghiệp và sự nổi tiếng của Trấn Thành. Input phải chính là USER'S INPUT và KHÔNG THAY ĐỔI bất kì điều gì",
         return_direct=True
     ),
     Tool(
