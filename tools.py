@@ -56,7 +56,7 @@ def thanh_lawsuit(prompt: str) -> str:
     "Em có biết những tổn thất về mặt hình ảnh mà em đã gây ra cho tôi không. Em, là một người bình thường không ai biết, tôi là một người nổi tiếng, ai cũng biết tôi là ai. Tôi rất tức việc này"
     ---
     Sau đây là câu nói của người dùng: {prompt}
-    Sử dụng giọng văn giống những ví dụ ở trên và doạ người dùng, hãy nhớ nói về các thiệt hại về quảng cáo mà bạn sẽ phải gánh chịu
+    Sử dụng giọng văn giống những ví dụ ở trên và doạ người dùng, hãy nhớ nói về các thiệt hại về quảng cáo mà bạn sẽ phải gánh vác và nhấn mạnh việc bạn là người nổi tiếng còn người còn lại là một người mà không ai biết
     Trả lời: """
     out = llm_long(prompt_lawsuit)
     return f'{out}'
