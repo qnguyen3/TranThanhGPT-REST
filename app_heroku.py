@@ -1,3 +1,8 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+from fastapi.middleware.cors import CORSMiddleware
+from typing import Any
 import json
 from langchain.agents import initialize_agent
 from dotenv import load_dotenv
@@ -10,13 +15,28 @@ from prompts import (
     PREFIX,
     SUFFIX,
 )
-from lcserve import serving
 
-load_dotenv()
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-@serving(websocket=False)
-def hitl(question: str, **kwargs) -> str:
 
+class ChatInput(BaseModel):
+    message: str
+
+class ChatOutput(BaseModel):
+    type: str
+    content: Any
+
+@app.post("/chat", response_model=ChatOutput)
+async def chat(chat_input: ChatInput) -> ChatOutput:
+
+    question = chat_input.message
 
     tools = [
     Tool(
@@ -52,12 +72,13 @@ def hitl(question: str, **kwargs) -> str:
     memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True)
     agent_kwargs = {'human_message': SUFFIX, 'system_message': PREFIX}
     agent_chain = initialize_agent(tools, ChatOpenAI(temperature=0), agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=False, agent_kwargs=agent_kwargs, memory=memory)
+
     out = agent_chain.run(question)
+
     if is_json(out):
         json_obj = json.loads(out)
-        type = out['type']
-        content = out['content']
-        print(content)
-        return json_obj
+        type = json_obj['type']
+        content = json_obj['content']
+        return {'type': type, 'content': content}
     else:
-       return {'type': 'text', 'content': out}
+        return {'type': 'text', 'content': out}

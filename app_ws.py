@@ -1,8 +1,16 @@
+import os
 import json
 from langchain.agents import initialize_agent
 from dotenv import load_dotenv
 from tools import thanh_singer, thanh_life_lesson, thanh_kol, thanh_lawsuit, thanh_private, is_json
+# In order to be compatible with different langchain versions
+try:
+    from langchain.callbacks.manager import CallbackManager
+except ImportError:
+    from langchain.callbacks import CallbackManager
+
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.agents import Tool, initialize_agent
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.agents import AgentType
@@ -14,9 +22,18 @@ from lcserve import serving
 
 load_dotenv()
 
-@serving(websocket=False)
+@serving(websocket=True)
 def hitl(question: str, **kwargs) -> str:
+    # Get the streaming_handler from kwargs. This is used to stream data to the client.
+    streaming_handler = kwargs.get('streaming_handler')
 
+    llm = ChatOpenAI(
+        temperature=0.0,
+        streaming=True,  # Pass streaming=True to make sure the client receives the data.
+        callback_manager=CallbackManager(
+            [streaming_handler]
+        ),  # Pass the callback handler
+    )
 
     tools = [
     Tool(
@@ -55,9 +72,8 @@ def hitl(question: str, **kwargs) -> str:
     out = agent_chain.run(question)
     if is_json(out):
         json_obj = json.loads(out)
-        type = out['type']
-        content = out['content']
-        print(content)
-        return json_obj
+        type = json_obj['type']
+        content = json_obj['content']
+        return {'type': type, 'content': content}
     else:
-       return {'type': 'text', 'content': out}
+        return out

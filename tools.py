@@ -7,17 +7,18 @@ import json
 
 load_dotenv()
 
-llm_short = OpenAI(max_tokens=500)
-llm_long = OpenAI(max_tokens=2048)
+llm_short = OpenAI(max_tokens=500, openai_api_key='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')
+llm_long = OpenAI(max_tokens=2048, openai_api_key='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')
 
 
 @tool("Thành Dạy Hát", return_direct=True)
 def thanh_singer(prompt: str) -> str:
     """Trấn Thành dạy hát cho người dùng"""
-    folder_path = './sing'  # Replace with the path to your folder
-    mp3_files = [os.getcwd() + '/sing/' + file for file in os.listdir(folder_path) if file.endswith('.mp3')]
+    prompt_thanh = ["Hãy cùng nghe Trấn Thành dạy hát tại đây nhé", "Tất nhiên rồi, Thành hát không hay nhưng Thành rất hay hát. Nghe Thành dạy hát tại đây", "Bùi Anh Tuấn thì cũng cỡ Thành thôi, nghe Thành dạy hát ở đây nha"]
+    mp3_files = [r"https://vocaroo.com/1evzb7gAtbBW", r"https://voca.ro/13nvcLpc2FtF", r"https://voca.ro/1b1RtX0imMrw", r"https://voca.ro/1lEkARFM5Dwh"]
+    intent = random.choice(prompt_thanh)
     file = random.choice(mp3_files)
-    return f'''{{"type": "mp3", "content": "{file}"}}'''
+    return f'''{{"type": "text", "content": "{intent}: {file}"}}'''
 
 @tool("Thành Đạo Lý", return_direct=True)
 def thanh_life_lesson(prompt: str) -> str:
