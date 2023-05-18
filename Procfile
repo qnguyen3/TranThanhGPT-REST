@@ -1,1 +1,1 @@
-web: gunicorn -w 8 -k uvicorn.workers.UvicornWorker app_heroku:app
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker app_heroku:app
