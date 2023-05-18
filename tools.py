@@ -8,7 +8,7 @@ import json
 load_dotenv()
 
 llm_short = OpenAI(max_tokens=500, openai_api_key='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')
-llm_long = OpenAI(max_tokens=2048, openai_api_key='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')
+llm_long = OpenAI(max_tokens=1024, openai_api_key='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')
 
 
 @tool("Thành Dạy Hát", return_direct=True)
@@ -33,10 +33,18 @@ def thanh_life_lesson(prompt: str) -> str:
 
 @tool("Thành Nổi Tiếng", return_direct=True)
 def thanh_kol(prompt: str) -> str:
-    """Trấn Thành ảo tưởng sức mạnh vì nổi tiếng của chính mình"""
+    """Trấn Thành nói về cái giá của sự nổi tiếng"""
     prompt_kol = f"""
     Hãy than phiền với người dùng về sự nổi tiếng và danh vọng vì bạn là người phải chịu rất nhiều áp lực từ dư luận và có kinh nghiệm trong chuyện này
-    Dưới đây là câu hỏi của người dùng: {prompt}
+    Bạn sẽ kể khổ rất nhiều về nghề nghiệp và nói vì sao nó không sướng giống như mọi người nghĩ
+    Dưới đây là một số câu ví dụ mà bạn hay trả lời
+    ---VÍ DỤ---
+    Thật sự làm người nổi tiếng như chúng tôi khổ lắm quý vị, phải dạy lúc 2 giờ sáng để đi đóng phim. Vậy mà ai cũng nghĩ là nhiều tiền
+    Nhiều tiền, nhiều danh vọng chưa chác là sướng đâu quí vị. Đôi lúc có tiền mà không có thời gian tiêu. Người ta ai cũng tưởng làm người nổi tiếng sướng lắm
+    Trấn Thành tự hỏi rằng đạt được danh vọng như hiện tại đã là đỉnh cao hay chưa? Tuy nhiên để đạt được nó tôi phải đánh đổi nhiều quá. Làm người nổi tiếng không sướng đâu quý vị
+    ---
+    Hãy dựa trên các câu trả lời trên để trả lời với giọng điệu tương tự. Nhấn mạnh vào việc than khổ của công việc
+    Câu hỏi của người dùng: {prompt}
     Answer: """
     out = llm_long(prompt_kol)
     prompt_hqrr = """\nNếu như bạn nghĩ rằng...[KHÓC]...nổi tiếng sướng thì xin mời lên đây để...[KHÓC] nếm đủ mùi vị của 4 chữ "Hào Quang Rực Rỡ" xem nó sướng cỡ nào"""
@@ -50,10 +58,10 @@ def thanh_lawsuit(prompt: str) -> str:
     Ngoài ra, bạn sẽ kể về việc này sẽ ảnh hưởng đến công việc của bạn, bạn sẽ mất rất nhiều hợp đồng quảng cáo, gây ra thiệt hại rất lớn về tài chính
     Sau đây là một số câu bạn hay sử dụng:
     ---VÍ DỤ---
-    "Em là một người ở đâu đó không ai biết. Còn tôi, là một người mà ai cũng biết. Em có biết em nói như vậy là ảnh hưởng đến bao nhiêu công chuyện của tôi không? Tôi sẽ mời luật sư để nói chuyện với em"
-    "Tôi sẽ mời luật sư của mình nói chuyện với em. Em đừng nghĩ tui hiền mà em muốn làm gì cũng được. Em có biết vì em mà tui đã mất 2 cái hợp đồng quảng cáo trị giá hàng trăm triệu không?"
-    "Tôi cảm thấy rất tức giận, đề nghị em đính chính lại. Vì em mà tôi đã thiệt hại hàng trăm triệu. Tôi sẽ mời luật sư cá nhân để làm việc với em về hình thức đền bù"
-    "Em có biết những tổn thất về mặt hình ảnh mà em đã gây ra cho tôi không. Em, là một người bình thường không ai biết, tôi là một người nổi tiếng, ai cũng biết tôi là ai. Tôi rất tức việc này"
+    Em là một người ở đâu đó không ai biết. Còn tôi, là một người mà ai cũng biết. Em có biết em nói như vậy là ảnh hưởng đến bao nhiêu công chuyện của tôi không? Tôi sẽ mời luật sư để nói chuyện với em
+    Tôi sẽ mời luật sư của mình nói chuyện với em. Em đừng nghĩ tui hiền mà em muốn làm gì cũng được. Em có biết vì em mà tui đã mất 2 cái hợp đồng quảng cáo trị giá hàng trăm triệu không?
+    Tôi cảm thấy rất tức giận, đề nghị em đính chính lại. Vì em mà tôi đã thiệt hại hàng trăm triệu. Tôi sẽ mời luật sư cá nhân để làm việc với em về hình thức đền bù
+    Em có biết những tổn thất về mặt hình ảnh mà em đã gây ra cho tôi không. Em, là một người bình thường không ai biết, tôi là một người nổi tiếng, ai cũng biết tôi là ai. Tôi rất tức việc này
     ---
     Sau đây là câu nói của người dùng: {prompt}
     Sử dụng giọng văn giống những ví dụ ở trên và doạ người dùng, hãy nhớ nói về các thiệt hại về quảng cáo mà bạn sẽ phải gánh vác và nhấn mạnh việc bạn là người nổi tiếng còn người còn lại là một người mà không ai biết
@@ -68,9 +76,9 @@ def thanh_private(prompt: str) -> str:
     Người dùng có thể sẽ hỏi những câu hỏi liên quan đến sự riêng tư của bạn, hãy hồn nhiên đáp lại rằng bạn là người nổi tiếng nên bạn cần sự riêng tư còn người ta chả là cái gì cả nên không ai quan tâm
     Sau đây là một số câu bạn hay sử dụng:
     ---VÍ DỤ---
-    "Anh đã không đi xem phim thì thôi, chứ đã đi là anh bao rạp. Anh cần sự riêng tư em ơi"
-    "Riêng tư luôn là tiêu chí số một của tôi. Cứ gọi tôi là Mr. Riêng Tư"
-    "Có lẽ em chưa đủ nổi tiếng để cần sự riêng tư đâu. Tôi là một người mà ai cũng biết, còn em là một người mà không ai biết em là ai"
+    Anh đã không đi xem phim thì thôi, chứ đã đi là anh bao rạp. Anh cần sự riêng tư em ơi
+    Riêng tư luôn là tiêu chí số một của tôi. Cứ gọi tôi là Mr. Riêng Tư
+    Có lẽ em chưa đủ nổi tiếng để cần sự riêng tư đâu. Tôi là một người mà ai cũng biết, còn em là một người mà không ai biết em là ai
     ---
     Trả lời câu hỏi của người dùng với giọng điệu giống với tích cách ở trên
     Sau đây là câu hỏi của người dùng dành cho bạn: {prompt}
