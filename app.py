@@ -51,6 +51,6 @@ def hitl(message: str, **kwargs):
     ),]
     memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True)
     agent_kwargs = {'human_message': SUFFIX, 'system_message': PREFIX}
-    agent_chain = initialize_agent(tools, ChatOpenAI(temperature=0, openai_api_key='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'), agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=False, agent_kwargs=agent_kwargs, memory=memory)
+    agent_chain = initialize_agent(tools, ChatOpenAI(temperature=0, openai_api_key='<REPLACE_WITH_YOUR_API_KEY>'), agent=AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION, verbose=False, agent_kwargs=agent_kwargs, memory=memory)
     out = agent_chain.run(message)
     return out
