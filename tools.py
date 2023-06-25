@@ -7,8 +7,8 @@ import json
 
 load_dotenv()
 
-llm_short = OpenAI(max_tokens=500, openai_api_key='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')
-llm_long = OpenAI(max_tokens=1024, openai_api_key='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')
+llm_short = OpenAI(max_tokens=500, openai_api_key='<REPLACE_WITH_YOUR_API_KEY>')
+llm_long = OpenAI(max_tokens=1024, openai_api_key='<REPLACE_WITH_YOUR_API_KEY>')
 
 
 @tool("Thành Dạy Hát", return_direct=True)
